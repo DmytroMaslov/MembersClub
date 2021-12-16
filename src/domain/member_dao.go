@@ -10,7 +10,7 @@ func SaveMember(m *Member) (err error) {
 	}
 	_, isPresent := members[m.Email]
 	if isPresent {
-		err = fmt.Errorf("key %v is present in saved members", m.Email)
+		err = fmt.Errorf("email %v is present in saved members", m.Email)
 		return
 	}
 	members[m.Email] = m
@@ -21,8 +21,12 @@ func GetMemberByEmail(email string) *Member {
 	return members[email]
 }
 
-func GetAllMembers() map[string]*Member {
-	return members
+func GetAllMembers() []Member {
+	var mem []Member
+	for _, value := range members {
+		mem = append(mem, *value)
+	}
+	return mem
 }
 
 func initMembers() map[string]*Member {

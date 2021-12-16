@@ -6,13 +6,13 @@ func Test_SaveMember(t *testing.T) {
 	mem1 := Member{
 		Name:            "Dima",
 		Email:           "123",
-		RegistationDate: "today",
+		RegistationDate: 123,
 	}
 
 	mem2 := Member{
 		Name:            "NeDima",
 		Email:           "123",
-		RegistationDate: "today",
+		RegistationDate: 123,
 	}
 
 	SaveMember(&mem1)
