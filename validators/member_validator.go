@@ -1,19 +1,14 @@
-package domain
+package validators
 
 import (
 	"errors"
 	"fmt"
 
+	"github.com/DmytroMaslov/memberclub/domain"
 	"gopkg.in/go-playground/validator.v9"
 )
 
-type Member struct {
-	Name            string `json:"name" validate:"alpha|containsany= ."`
-	Email           string `json:"email" validate:"email"`
-	RegistationDate int64  `json:"registration_date"`
-}
-
-func (member Member) Validate() (err error) {
+func Validate(member domain.Member) (err error) {
 	var errorMessage string
 	v := validator.New()
 	validateErr := v.Struct(member)
@@ -27,6 +22,9 @@ func (member Member) Validate() (err error) {
 			case "email":
 				errorMessage += fmt.Sprintf(
 					"field %s must contains valid email format", el.Field())
+			case "lte":
+				errorMessage += fmt.Sprintf(
+					"field %s must contains creative data less than now", el.Field())
 			default:
 				errorMessage += fmt.Sprintf(
 					"something wrong with %s validation", el.Field())

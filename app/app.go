@@ -1,8 +1,9 @@
 package app
 
 import (
-	"memberclub/src/controllers"
 	"net/http"
+
+	"github.com/DmytroMaslov/memberclub/controllers"
 )
 
 func StartApp() {
@@ -12,13 +13,3 @@ func StartApp() {
 		panic(err)
 	}
 }
-
-/*
-endpoints:
-view all members: return all members
-add new member
-name + email - ok 200
-name + dublicate email - error mesage
-
-
-*/
