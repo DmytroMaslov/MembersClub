@@ -9,13 +9,13 @@ import (
 )
 
 //насколько уместно использовать переприсваение map?
-func Test_SaveMember_succes(t *testing.T) {
+func Test_SaveMember_success(t *testing.T) {
 	inputMember := &Member{
 		Name:            "Test",
 		Email:           "test@test.com",
 		RegistationDate: time.Now(),
 	}
-	outMember, err := SaveMember(inputMember)
+	outMember, err := MemberDao.SaveMember(inputMember)
 	assert.Equal(t, inputMember, outMember, "input and output Member not equal")
 	assert.Nil(t, err, "error not nil")
 	memberInMemory := atomicMembers.members[inputMember.Email]
@@ -28,8 +28,8 @@ func Test_SaveMember_fail(t *testing.T) {
 		Email:           "test@test.com",
 		RegistationDate: time.Now(),
 	}
-	SaveMember(inputMember)
-	_, err := SaveMember(inputMember)
+	MemberDao.SaveMember(inputMember)
+	_, err := MemberDao.SaveMember(inputMember)
 	assert.NotNil(t, err, "Expect error if try save Member with existing email")
 }
 
@@ -47,8 +47,8 @@ func Test_GetAllMembers(t *testing.T) {
 	inputMembers := []Member{*inputMemberFirst, *inputMemberSecond}
 	atomicMembers = nil
 	atomicMembers = initMembers()
-	SaveMember(inputMemberFirst)
-	SaveMember(inputMemberSecond)
-	outMembers := GetAllMembers()
+	MemberDao.SaveMember(inputMemberFirst)
+	MemberDao.SaveMember(inputMemberSecond)
+	outMembers := MemberDao.GetAllMembers()
 	assert.True(t, reflect.DeepEqual(inputMembers, outMembers))
 }

@@ -17,7 +17,7 @@ func AddMember(name string, email string) (m *domain.Member, err error) {
 	if err != nil {
 		return
 	}
-	m, err = domain.SaveMember(&newMember)
+	m, err = domain.MemberDao.SaveMember(&newMember)
 	if err != nil {
 		return
 	}
@@ -25,5 +25,5 @@ func AddMember(name string, email string) (m *domain.Member, err error) {
 }
 
 func GetAllMembers() []domain.Member {
-	return domain.GetAllMembers()
+	return domain.MemberDao.GetAllMembers()
 }

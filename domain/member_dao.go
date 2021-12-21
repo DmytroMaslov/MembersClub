@@ -5,15 +5,25 @@ import (
 	"sync"
 )
 
+var (
+	atomicMembers *members
+	MemberDao     MemberDaoInterface
+)
+
+type MemberDaoInterface interface {
+	SaveMember(m *Member) (outM *Member, err error)
+	GetAllMembers() []Member
+}
+
 type members struct {
 	lock    sync.Mutex
 	members map[string]*Member
 }
 
-var atomicMembers *members
-
 func init() {
 	atomicMembers = initMembers()
+	MemberDao = &members{}
+
 }
 
 func initMembers() *members {
@@ -44,7 +54,7 @@ func (ms *members) getAllMembers() []Member {
 	return mem
 }
 
-func SaveMember(m *Member) (outM *Member, err error) {
+func (ms *members) SaveMember(m *Member) (outM *Member, err error) {
 	_, isPresent := atomicMembers.getMember(m.Email)
 	if isPresent {
 		err = fmt.Errorf("email %v is present in saved members", m.Email)
@@ -55,6 +65,6 @@ func SaveMember(m *Member) (outM *Member, err error) {
 	return outM, nil
 }
 
-func GetAllMembers() []Member {
+func (ms *members) GetAllMembers() []Member {
 	return atomicMembers.getAllMembers()
 }
