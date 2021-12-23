@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/DmytroMaslov/memberclub/domain"
+	"github.com/DmytroMaslov/memberclub/src/domain"
 	"gopkg.in/go-playground/validator.v9"
 )
 

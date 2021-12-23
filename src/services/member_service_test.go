@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/DmytroMaslov/memberclub/domain"
-	"github.com/DmytroMaslov/memberclub/mock"
+	"github.com/DmytroMaslov/memberclub/src/domain"
+	"github.com/DmytroMaslov/memberclub/src/mock"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -18,23 +18,25 @@ func init() {
 func Test_AddUser_Success(t *testing.T) {
 	expectedName := "test"
 	expectedEmail := "test@test.com"
+	expectedTime := time.Now().UTC()
 	mock.SaveMemberFunc = func(m *domain.Member) (outM *domain.Member, err error) {
 		return &domain.Member{
-			Name:  expectedName,
-			Email: expectedEmail,
+			Name:            expectedName,
+			Email:           expectedEmail,
+			RegistationDate: expectedTime,
 		}, nil
 	}
-	m, err := AddMember(expectedName, expectedEmail)
+	m, err := AddMember(expectedName, expectedEmail, expectedTime)
 	assert.Equal(t, expectedName, m.Name, "name after saving not same")
 	assert.Equal(t, expectedEmail, m.Email, "email after saving not same")
-	assert.True(t, time.Now().After(m.RegistationDate), "Registration date in a future")
+	assert.Equal(t, expectedTime, m.RegistationDate, "Registration date after saving not same")
 	assert.Nil(t, err)
 }
 
 func Test_AddUser_ValidationFail(t *testing.T) {
 	validName := "test"
 	invalidEmail := "test"
-	m, err := AddMember(validName, invalidEmail)
+	m, err := AddMember(validName, invalidEmail, time.Now().UTC())
 	assert.Nil(t, m)
 	assert.NotNil(t, err)
 }
@@ -45,7 +47,7 @@ func Test_AddUser_SavingError(t *testing.T) {
 	}
 	name := "test"
 	email := "test@test.com"
-	m, err := AddMember(name, email)
+	m, err := AddMember(name, email, time.Now().UTC())
 	assert.Nil(t, m)
 	assert.NotNil(t, err)
 }

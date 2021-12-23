@@ -8,7 +8,6 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-//насколько уместно использовать переприсваение map?
 func Test_SaveMember_success(t *testing.T) {
 	inputMember := &Member{
 		Name:            "Test",
@@ -19,7 +18,7 @@ func Test_SaveMember_success(t *testing.T) {
 	assert.Equal(t, inputMember, outMember, "input and output Member not equal")
 	assert.Nil(t, err, "error not nil")
 	memberInMemory := atomicMembers.members[inputMember.Email]
-	assert.Equal(t, inputMember, memberInMemory, "input member and member in memmory not same")
+	assert.Equal(t, inputMember, memberInMemory, "input member and member in memory not same")
 }
 
 func Test_SaveMember_fail(t *testing.T) {

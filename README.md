@@ -1,5 +1,9 @@
 # MembersClub
 “Member Club” is a web-application which allows to add members to the Club and view list of club members.
+
+## Application on Heroku
+https://peaceful-peak-29287.herokuapp.com/
+
 ## Get started
 ### Instal golang
 >Go to https://golang.org/doc/install and follow the instructions regarding your OS.
@@ -25,19 +29,19 @@ Make request using curl:
 
 ### Run test
 use command
->$ go test ./..
+>$ go test ./...
 
 ## API
 ### Endpoint for adding new member:
 > /addMember
 
-return: json with new member (Name, Email, Reggistration time)
+return: json with new member (Name, Email, Registration time)
 >example:
 
 >request:
 /addMember?name=Bob&email=bob@gmail.com
 
->responce:
+>response:
 {"name":"Bob","email":"bob@gmail.com" "registration_date":"2021-12-21T15:01:08.424568Z"}
 
 ### Endpoint for geting list of all members

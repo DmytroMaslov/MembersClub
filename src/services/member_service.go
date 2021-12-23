@@ -3,15 +3,15 @@ package services
 import (
 	"time"
 
-	"github.com/DmytroMaslov/memberclub/domain"
-	"github.com/DmytroMaslov/memberclub/validators"
+	"github.com/DmytroMaslov/memberclub/src/domain"
+	"github.com/DmytroMaslov/memberclub/src/validators"
 )
 
-func AddMember(name string, email string) (m *domain.Member, err error) {
+func AddMember(name string, email string, regTime time.Time) (m *domain.Member, err error) {
 	newMember := domain.Member{
 		Name:            name,
 		Email:           email,
-		RegistationDate: time.Now().UTC(),
+		RegistationDate: regTime,
 	}
 	err = validators.Validate(newMember)
 	if err != nil {

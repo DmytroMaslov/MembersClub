@@ -7,7 +7,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/DmytroMaslov/memberclub/controllers"
+	"github.com/DmytroMaslov/memberclub/src/controllers"
 	"github.com/stretchr/testify/assert"
 )
 

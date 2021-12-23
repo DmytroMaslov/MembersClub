@@ -1,6 +1,6 @@
 package mock
 
-import "github.com/DmytroMaslov/memberclub/domain"
+import "github.com/DmytroMaslov/memberclub/src/domain"
 
 type membersDaoMock struct {
 }

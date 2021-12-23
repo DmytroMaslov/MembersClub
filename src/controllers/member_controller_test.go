@@ -9,8 +9,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/DmytroMaslov/memberclub/domain"
-	"github.com/DmytroMaslov/memberclub/mock"
+	"github.com/DmytroMaslov/memberclub/src/domain"
+	"github.com/DmytroMaslov/memberclub/src/mock"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -80,7 +80,7 @@ func Test_AddUser_WithoutName(t *testing.T) {
 	assert.Equal(t, "Request must contain name", rr.Body.String())
 }
 
-func Test_AddUser_WithouEmail(t *testing.T) {
+func Test_AddUser_WithoutEmail(t *testing.T) {
 	inputQuery := "name=Test"
 	request := &http.Request{
 		URL: &url.URL{
@@ -128,6 +128,6 @@ func Test_GetAllMember_EmptyStorage(t *testing.T) {
 	rr := httptest.NewRecorder()
 	handler := http.HandlerFunc(GetAllMember)
 	handler.ServeHTTP(rr, request)
-	assert.Equal(t, http.StatusNoContent, rr.Code)
+	assert.Equal(t, http.StatusOK, rr.Code)
 	assert.Equal(t, "Any saved members", rr.Body.String())
 }

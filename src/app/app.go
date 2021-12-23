@@ -2,20 +2,19 @@ package app
 
 import (
 	"net/http"
-	"os"
 
-	"github.com/DmytroMaslov/memberclub/controllers"
-	"github.com/DmytroMaslov/memberclub/log"
+	"github.com/DmytroMaslov/memberclub/src/config"
+	"github.com/DmytroMaslov/memberclub/src/controllers"
+	"github.com/DmytroMaslov/memberclub/src/log"
 )
 
-var port = os.Getenv("PORT")
-
 func StartApp() {
-	if port == "" {
+	conf := config.Load()
+	if conf.Port == "" {
 		log.Get().Error("$PORT must be set")
 		panic("$PORT must be set")
 	}
-	port = ":" + port
+	port := ":" + conf.Port
 	log.Get().Info("Service run on port:%v", port)
 	http.HandleFunc("/addMember", controllers.AddUser)
 	http.HandleFunc("/getAllMember", controllers.GetAllMember)
