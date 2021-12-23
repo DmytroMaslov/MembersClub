@@ -53,7 +53,7 @@ func GetAllMember(resp http.ResponseWriter, req *http.Request) {
 	if len(members) == 0 {
 		resp.WriteHeader(http.StatusNoContent)
 		resp.Write([]byte("Any saved members"))
-		log.Get().Info("Responce:", http.StatusNoContent)
+		log.Get().Info("Responce: %v", http.StatusNoContent)
 
 		return
 	}
