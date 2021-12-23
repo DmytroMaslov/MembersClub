@@ -55,7 +55,7 @@ func GetAllMember(resp http.ResponseWriter, req *http.Request) {
 	if len(members) == 0 {
 		resp.WriteHeader(http.StatusOK)
 		resp.Write([]byte("Any saved members"))
-		log.Get().Info("Responce: Status:%v Data:%v", http.StatusOK, "Any saved members")
+		log.Get().Info("Responce: Status:%v Data:%v", http.StatusOK, "No saved members")
 		return
 	}
 	jsonMembers, err := json.Marshal(members)
