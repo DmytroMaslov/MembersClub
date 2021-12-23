@@ -129,4 +129,5 @@ func Test_GetAllMember_EmptyStorage(t *testing.T) {
 	handler := http.HandlerFunc(GetAllMember)
 	handler.ServeHTTP(rr, request)
 	assert.Equal(t, http.StatusNoContent, rr.Code)
+	assert.Equal(t, "Any saved members", rr.Body.String())
 }

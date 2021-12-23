@@ -52,7 +52,9 @@ func GetAllMember(resp http.ResponseWriter, req *http.Request) {
 	members := services.GetAllMembers()
 	if len(members) == 0 {
 		resp.WriteHeader(http.StatusNoContent)
+		resp.Write([]byte("Any saved members"))
 		log.Get().Info("Responce:", http.StatusNoContent)
+
 		return
 	}
 	jsonMembers, err := json.Marshal(members)
